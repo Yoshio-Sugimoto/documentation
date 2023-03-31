@@ -10,6 +10,11 @@ permalink: /documentation/enterprise/developerbox/installation/board-recovery.md
    * [Low-level (CM3) firmware recovery](#low-level-cm3-firmware-recovery)
       * [Update using serial flasher](#update-using-serial-flasher-1)
       * [JTAG recovery](#jtag-recovery)
+   * [Serial flasher update](#serial-flasher-update)
+      * [prepare USB flash drive](#prepare-usb-flash-drive)
+      * [run linux for updating serial flasher](#run-linux-for-updating-serial-flasher)
+      * [update serial flasher](#update-serial-flasher)
+      * [run serial flasher](#run-serial-flasher)
 
 <!-- Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc) -->
 
@@ -285,6 +290,61 @@ flash write s-mir-cm3
 flash write p-master-cm3
 >> Send new CM3 firmware via XMODEM <<
 ~~~
+
+# Serial flasher update
+
+Here's how to update the serial flasher which uses the micro-B USB port on DeveloperBox as an UART port.
+
+## prepare USB flash drive
+
+Download [flash-update.tar.gz](flash-update.tar.gz)
+
+Extract flash-update.tar.gz and write the flash-update.iso to a USB flash drive.
+
+```sh
+$ sudo dd if=/path/to/flash-update.iso of=/dev/sdX/
+$ sync
+```
+
+## run linux for updating serial flasher
+
+Plug the USB flash drive to your Developerbox and power it on.
+When the following message is displayed, press ESCAPE for boot option.
+
+```
+Tianocore/EDK2 firmware version 1024
+Press ESCAPE for boot option ...
+```
+
+Select Boot Manager.
+From the Boot Manager Menu, select the item corresponding to the USB flash drive in which flash-update.iso is written.
+
+Select "flash-update" entry on Grub.
+
+~~~
+F/W Upgrade Run - flash-update
+~~~
+
+Then, Linux is going to boot.
+
+## update serial flasher
+
+After booting Linux, run the following command.
+
+~~~
+~ # flash-update
+~~~
+
+When you see the following and come back to the command prompt, the update is complete.
+
+~~~
+Writing F/W @70000 ...
+~~~
+
+## run serial flasher
+
+See [Update using serial flasher](#update-using-serial-flasher) section.
+
 ---
 
 Back to [Download and Installation page](../installation/)
