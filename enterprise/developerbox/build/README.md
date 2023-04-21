@@ -113,9 +113,14 @@ Run the following commands to clone the source code:
 
 ~~~ sh
 cd $WORKSPACE
-git clone https://github.com/OP-TEE/optee_os.git -b 3.19.0
-git clone https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git
-git clone https://source.denx.de/u-boot/u-boot.git
+git clone https://github.com/OP-TEE/optee_os.git -b 3.15.0 --depth=1
+git clone https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git -n
+git clone https://source.denx.de/u-boot/u-boot.git -n
+
+cd $WORKSPACE/trusted-firmware-a
+git checkout f7f5d2c4cd209c2d21244da4fa442050eb4531ab
+cd $WORKSPACE/u-boot
+git checkout 0171d056ec8b9be9d90af64adce54c6a5571dd15
 ~~~
 
 ## Build OP-TEE
